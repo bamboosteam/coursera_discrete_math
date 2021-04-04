@@ -40,6 +40,7 @@ def lower_bound(g, sub_cycle):
     return current_weight + min_from_t_weight + mst_weight + min_to_s_weight
 
 
+
 # The branch and bound procedure takes
 # 1. a graph g;
 # 2. the current sub_cycle, i.e. several first vertices of cycle under consideration.
@@ -51,8 +52,6 @@ def branch_and_bound(g, sub_cycle=None, current_min=float("inf")):
     if sub_cycle is None:
         sub_cycle = [0]
 
-    print(sub_cycle)
-    print(type(sub_cycle))
     # If we already have all vertices in the cycle, then we just compute the weight of this cycle and return it.
     if len(sub_cycle) == g.number_of_nodes():
         weight = sum([g[sub_cycle[i]][sub_cycle[i + 1]]['weight'] for i in range(len(sub_cycle) - 1)])
@@ -75,7 +74,7 @@ def branch_and_bound(g, sub_cycle=None, current_min=float("inf")):
         # For each unused vertex, we check if there is any chance to find a shorter cycle if we add it now.
         if lower_bound(g, extended_subcycle) < current_min:
             sub_cycle.append(v)
-    current_min = lower_bound(g, sub_cycle)
+    current_min = branch_and_bound(g, sub_cycle, lower_bound(g, sub_cycle))
             # WRITE YOUR CODE HERE
             # If there is such a chance, we add the vertex to the current cycle, and proceed recursively.
             # If we found a short cycle, then we update the current_min value.
