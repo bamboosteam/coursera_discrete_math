@@ -77,7 +77,5 @@ def branch_and_bound(g, sub_cycle=None, current_min=float("inf")):
             # WRITE YOUR CODE HERE
             # If there is such a chance, we add the vertex to the current cycle, and proceed recursively.
             # If we found a short cycle, then we update the current_min value.
-
-
     # The procedure returns the shortest cycle length.
     return current_min
