@@ -73,10 +73,11 @@ def branch_and_bound(g, sub_cycle=None, current_min=float("inf")):
         extended_subcycle.append(v)
         # For each unused vertex, we check if there is any chance to find a shorter cycle if we add it now.
         if lower_bound(g, extended_subcycle) < current_min:
-            sub_cycle.append(v)
-    current_min = branch_and_bound(g, sub_cycle, lower_bound(g, sub_cycle))
             # WRITE YOUR CODE HERE
             # If there is such a chance, we add the vertex to the current cycle, and proceed recursively.
             # If we found a short cycle, then we update the current_min value.
+            branch_min = branch_and_bound(g, extended_subcycle, lower_bound(g, extended_subcycle))
+            if current_min > branch_min:
+                current_min = branch_min
     # The procedure returns the shortest cycle length.
     return current_min
